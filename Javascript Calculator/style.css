@@ -1,0 +1,298 @@
+/* ===== SPACE / AEROSPACE THEME ===== */
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(circle at top, #1b2735 0%, #090a0f 70%);
+  margin: 0;
+  padding: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+
+  color: white;
+
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated stars */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 200%;
+  height: 200%;
+
+  background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(#00d9ff 1px, transparent 1px),
+    radial-gradient(#7df9ff 1px, transparent 1px);
+
+  background-size:
+    120px 120px,
+    180px 180px,
+    250px 250px;
+
+  opacity: 0.15;
+
+  animation: starsMove 120s linear infinite;
+
+  z-index: -1;
+}
+
+@keyframes starsMove {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-600px);
+  }
+}
+
+/* Calculator + Table */
+
+.calculator,
+.table-box {
+  background: rgba(15, 23, 42, 0.88);
+
+  border: 1px solid rgba(0, 217, 255, 0.25);
+
+  border-radius: 16px;
+
+  padding: 30px;
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 0 20px rgba(0, 217, 255, 0.15),
+    0 0 60px rgba(0, 217, 255, 0.08),
+    inset 0 0 20px rgba(0, 217, 255, 0.05);
+}
+
+/* Titles */
+
+h2,
+.table-title {
+  text-align: center;
+
+  color: #7df9ff;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+
+  text-shadow:
+    0 0 10px rgba(0, 217, 255, 0.8),
+    0 0 20px rgba(0, 217, 255, 0.4);
+
+  margin-bottom: 20px;
+}
+
+/* Labels */
+
+label {
+  display: block;
+
+  margin-top: 16px;
+  margin-bottom: 6px;
+
+  font-weight: bold;
+
+  color: #b9f3ff;
+
+  letter-spacing: 0.5px;
+}
+
+.note {
+  font-size: 13px;
+  color: #8aa0b8;
+  margin-bottom: 5px;
+}
+
+/* Inputs */
+
+input {
+  width: 100%;
+
+  padding: 12px;
+
+  background: rgba(255,255,255,0.05);
+
+  border: 1px solid rgba(0, 217, 255, 0.2);
+
+  border-radius: 8px;
+
+  color: white;
+
+  font-size: 15px;
+
+  transition: all 0.3s ease;
+
+  box-sizing: border-box;
+
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/* Remove arrows */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Input Focus */
+
+input:focus {
+  outline: none;
+
+  border-color: #00d9ff;
+
+  box-shadow:
+    0 0 10px rgba(0, 217, 255, 0.7),
+    0 0 25px rgba(0, 217, 255, 0.3);
+}
+
+/* Button */
+
+button {
+  width: 100%;
+
+  padding: 14px;
+
+  margin-top: 22px;
+
+  border: none;
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00d9ff,
+      #0066ff,
+      #00d9ff
+    );
+
+  background-size: 300% 300%;
+
+  color: white;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  animation: buttonGlow 5s ease infinite;
+
+  box-shadow:
+    0 0 15px rgba(0, 217, 255, 0.4);
+}
+
+@keyframes buttonGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 20px rgba(0, 217, 255, 0.8),
+    0 0 40px rgba(0, 217, 255, 0.4);
+}
+
+/* Result Box */
+
+.result {
+  margin-top: 20px;
+
+  padding: 16px;
+
+  border-radius: 10px;
+
+  text-align: center;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  background: rgba(0, 217, 255, 0.08);
+
+  border: 1px solid rgba(0, 217, 255, 0.2);
+
+  color: #7df9ff;
+
+  text-shadow:
+    0 0 8px rgba(0,217,255,0.7);
+}
+
+/* Formula */
+
+.formula {
+  margin-top: 16px;
+
+  text-align: center;
+
+  color: #94a3b8;
+
+  line-height: 1.6;
+
+  font-size: 14px;
+}
+
+/* Table */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid rgba(255,255,255,0.08);
+
+  padding: 10px;
+
+  text-align: center;
+}
+
+th {
+  background: rgba(0, 217, 255, 0.12);
+
+  color: #7df9ff;
+
+  text-transform: uppercase;
+}
+
+td {
+  color: #dbeafe;
+}
+
+tr:nth-child(even) {
+  background: rgba(255,255,255,0.03);
+}
+
+/* Hover effect */
+
+tr:hover {
+  background: rgba(0, 217, 255, 0.08);
+}

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimum Geo Mag Calculator</title>
+
+<style>
+
+/* ===== SPACE / AEROSPACE THEME ===== */
+
+body {
+   font-family: "Segoe UI", Arial, sans-serif;
+
+  /* FIX: force full screen height */
+  min-height: 100vh;
+
+  background:
+    radial-gradient(circle at top, #1b2735 0%, #090a0f 70%);
+
+  margin: 0;
+  padding: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+
+  color: white;
+
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* stars */
+body::before {
+   content: "";
+  position: fixed;
+  inset: 0; /* replaces top/left/width/height */
+
+  background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(#00d9ff 1px, transparent 1px),
+    radial-gradient(#7df9ff 1px, transparent 1px);
+
+  background-size: 120px 120px, 180px 180px, 250px 250px;
+
+  opacity: 0.15;
+
+  animation: starsMove 120s linear infinite;
+
+  z-index: -1;
+}
+
+@keyframes starsMove {
+  from { transform: translateY(0); }
+  to { transform: translateY(-600px); }
+}
+
+/* panels */
+.calculator,
+.table-box {
+  background: rgba(15, 23, 42, 0.88);
+
+  border: 1px solid rgba(0, 217, 255, 0.25);
+
+  border-radius: 16px;
+
+  padding: 30px;
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 0 20px rgba(0, 217, 255, 0.15),
+    0 0 60px rgba(0, 217, 255, 0.08),
+    inset 0 0 20px rgba(0, 217, 255, 0.05);
+}
+
+/* headings */
+h2,
+.table-title {
+  text-align: center;
+  color: #7df9ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 0 10px rgba(0, 217, 255, 0.8),
+    0 0 20px rgba(0, 217, 255, 0.4);
+
+  margin-bottom: 20px;
+}
+
+/* labels */
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: #b9f3ff;
+  font-weight: bold;
+}
+
+.note {
+  font-size: 13px;
+  color: #8aa0b8;
+  margin-bottom: 5px;
+}
+
+/* inputs */
+input {
+  width: 100%;
+  padding: 12px;
+
+  background: rgba(255,255,255,0.05);
+
+  border: 1px solid rgba(0, 217, 255, 0.2);
+
+  border-radius: 8px;
+
+  color: white;
+
+  font-size: 15px;
+
+  box-sizing: border-box;
+
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/* remove arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:focus {
+  outline: none;
+  border-color: #00d9ff;
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.6);
+}
+
+/* button */
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+  font-size: 16px;
+
+  color: white;
+
+  background: linear-gradient(90deg, #00d9ff, #0066ff, #00d9ff);
+  background-size: 300% 300%;
+
+  animation: glow 5s ease infinite;
+
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+}
+
+@keyframes glow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(0, 217, 255, 0.7);
+}
+
+/* result */
+.result {
+  margin-top: 20px;
+  padding: 15px;
+
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+
+  background: rgba(0, 217, 255, 0.08);
+
+  border: 1px solid rgba(0, 217, 255, 0.2);
+
+  border-radius: 10px;
+
+  color: #7df9ff;
+}
+
+/* formula */
+.formula {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* table */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: rgba(0, 217, 255, 0.15);
+  color: #7df9ff;
+}
+
+tr:hover {
+  background: rgba(0, 217, 255, 0.08);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- CALCULATOR -->
+<div class="calculator">
+
+  <h2>Minimum Geo Mag</h2>
+
+  <label>Basic Spatial Resolution (inches)</label>
+  <div class="note">Spatial Resolution of Detector</div>
+  <input id="srb" type="number" step="any" placeholder="Enter SRb in inches">
+
+  <label>T Hole (inches)</label>
+  <div class="note">Required IQI T Hole size</div>
+  <input id="tHole" type="number" step="any" placeholder="Enter T Hole in inches">
+
+  <button onclick="calc()">Calculate</button>
+
+  <div class="result" id="result">Result will appear here</div>
+
+  <div class="formula">
+    Minimum Geo Mag = (4.25 × SRb) ÷ T Hole
+  </div>
+
+</div>
+
+<!-- TABLE -->
+<div class="table-box">
+
+  <div class="table-title">SRb Reference Table</div>
+
+  <table>
+    <tr>
+      <th>Detector</th>
+      <th>SRb (mm)</th>
+      <th>SRb (inch)</th>
+    </tr>
+
+    <tr><td>D7</td><td>0.20</td><td>0.007874</td></tr>
+    <tr><td>D8</td><td>0.16</td><td>0.006299</td></tr>
+    <tr><td>D9</td><td>0.13</td><td>0.005118</td></tr>
+    <tr><td>D10</td><td>0.10</td><td>0.003937</td></tr>
+    <tr><td>D11</td><td>0.08</td><td>0.003149</td></tr>
+    <tr><td>D12</td><td>0.063</td><td>0.002480</td></tr>
+    <tr><td>D13</td><td>0.05</td><td>0.001969</td></tr>
+
+  </table>
+
+</div>
+
+<script>
+
+function calc() {
+
+  const srb = parseFloat(document.getElementById("srb").value);
+  const tHole = parseFloat(document.getElementById("tHole").value);
+  const result = document.getElementById("result");
+
+  if (isNaN(srb) || isNaN(tHole) || tHole === 0) {
+    result.innerHTML = "Enter valid values";
+    return;
+  }
+
+  const geoMag = (4.25 * srb) / tHole;
+
+  result.innerHTML = geoMag; // no rounding
+
+}
+
+</script>
+
+</body>
+</html>
